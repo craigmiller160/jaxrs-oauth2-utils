@@ -3,6 +3,7 @@ package io.craigmiller160.jaxrs.oauth2.client.config
 import io.craigmiller160.oauth2.config.OAuth2Config
 import java.util.*
 
+// TODO how do I expose this via hk2 injection? Is it possible?
 class OAuth2ConfigImpl(
         private val props: Properties
 ) : OAuth2Config {
