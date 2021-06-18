@@ -25,6 +25,11 @@ class OAuth2ConfigImplTest {
     }
 
     @Test
+    fun test_loadProps_withEnv() {
+        TODO("Finish this")
+    }
+
+    @Test
     fun test_loadProps_fileNotFound() {
         assertFailsWith<OAuth2PropertiesException> {
             OAuth2ConfigImpl("foo.properties")

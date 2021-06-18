@@ -32,6 +32,10 @@ class OAuth2ConfigImpl(propsPath: String) : OAuth2Config {
         javaClass.classLoader.getResourceAsStream(propsPath)
                 ?.let { props.load(it) }
                 ?: throw OAuth2PropertiesException("OAuth2 Properties not found")
+
+        System.getenv().forEach { entry ->
+            props.setProperty(entry.key, entry.value)
+        }
     }
 
     override var authCodeRedirectUri: String = props.getProperty(AUTH_CODE_REDIRECT_URI, "")
