@@ -22,17 +22,15 @@ class OAuth2ConfigImpl : OAuth2Config {
 
         private const val PROPS_PATH = "oauth2.properties"
 
-        private lateinit var props: Properties
+    }
 
-        // TODO new exception type
-        // TODO synchronize this
-        // TODO need a static singleton instance
-        fun initialize() {
-            OAuth2ConfigImpl::class.java.classLoader.getResourceAsStream(PROPS_PATH)
-                    ?.let { props.load(it) }
-                    ?: throw RuntimeException("Cannot find properties file: $PROPS_PATH")
-        }
+    // TODO need special injection binder class here
 
+    private val props = Properties()
+
+    init {
+        // TODO need to validate resource exists
+        props.load(javaClass.classLoader.getResourceAsStream(PROPS_PATH))
     }
 
     override var authCodeRedirectUri: String = props.getProperty(AUTH_CODE_REDIRECT_URI, "")
