@@ -8,7 +8,7 @@ import javax.ws.rs.ext.Provider
 @Provider
 class OAuth2InjectionBinder : AbstractBinder() {
     override fun configure() {
-        bind(OAuth2Config::class.java)
-                .to(OAuth2ConfigImpl::class.java)
+        bind(OAuth2ConfigImpl::class.java)
+                .to(OAuth2Config::class.java)
     }
 }
