@@ -1,7 +1,9 @@
 package io.craigmiller160.jaxrs.oauth2.config
 
+import io.craigmiller160.jaxrs.oauth2.exception.OAuth2PropertiesException
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertFailsWith
 
 class OAuth2ConfigImplTest {
 
@@ -24,7 +26,9 @@ class OAuth2ConfigImplTest {
 
     @Test
     fun test_loadProps_fileNotFound() {
-        TODO("Finish this")
+        assertFailsWith<OAuth2PropertiesException> {
+            OAuth2ConfigImpl("foo.properties")
+        }
     }
 
 }
