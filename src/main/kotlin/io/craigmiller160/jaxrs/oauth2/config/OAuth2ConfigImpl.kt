@@ -1,5 +1,6 @@
 package io.craigmiller160.jaxrs.oauth2.config
 
+import io.craigmiller160.jaxrs.oauth2.exception.OAuth2PropertiesException
 import io.craigmiller160.oauth2.config.OAuth2Config
 import java.lang.RuntimeException
 import java.util.*
@@ -30,7 +31,7 @@ class OAuth2ConfigImpl : OAuth2Config {
     init {
         javaClass.classLoader.getResourceAsStream(PROPS_PATH)
                 ?.let { props.load(it) }
-                ?: throw RuntimeException("OAuth2 Properties not found")
+                ?: throw OAuth2PropertiesException("OAuth2 Properties not found")
     }
 
     override var authCodeRedirectUri: String = props.getProperty(AUTH_CODE_REDIRECT_URI, "")

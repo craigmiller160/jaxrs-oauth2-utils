@@ -7,7 +7,12 @@ class OAuth2ConfigImplTest {
     private lateinit var oauth2Config: OAuth2ConfigImpl
 
     @Test
-    fun test() {
+    fun test_loadProps() {
+        TODO("Finish this")
+    }
+
+    @Test
+    fun test_loadProps_fileNotFound() {
         TODO("Finish this")
     }
 
