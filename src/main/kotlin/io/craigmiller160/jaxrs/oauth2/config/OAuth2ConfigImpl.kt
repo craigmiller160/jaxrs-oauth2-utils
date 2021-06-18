@@ -4,7 +4,6 @@ import io.craigmiller160.oauth2.config.OAuth2Config
 import java.lang.RuntimeException
 import java.util.*
 
-// TODO how do I expose this via hk2 injection? Is it possible?
 class OAuth2ConfigImpl : OAuth2Config {
     companion object {
         const val AUTH_CODE_REDIRECT_URI = "oauth2.auth-code-redirect-uri"
@@ -29,8 +28,9 @@ class OAuth2ConfigImpl : OAuth2Config {
     private val props = Properties()
 
     init {
-        // TODO need to validate resource exists
-        props.load(javaClass.classLoader.getResourceAsStream(PROPS_PATH))
+        javaClass.classLoader.getResourceAsStream(PROPS_PATH)
+                ?.let { props.load(it) }
+                ?: throw RuntimeException("OAuth2 Properties not found")
     }
 
     override var authCodeRedirectUri: String = props.getProperty(AUTH_CODE_REDIRECT_URI, "")
