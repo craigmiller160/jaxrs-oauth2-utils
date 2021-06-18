@@ -22,8 +22,6 @@ class OAuth2ConfigImpl(private val propsPath: String) : OAuth2Config {
         private const val DEFAULT_PROPS_PATH = "oauth2.properties"
     }
 
-    // TODO need special injection binder class here
-
     private val props = Properties()
 
     constructor() : this(DEFAULT_PROPS_PATH)
