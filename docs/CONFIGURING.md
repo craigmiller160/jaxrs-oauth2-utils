@@ -4,7 +4,7 @@ To flexibly support various applications, this library is very configuration dri
 
 ## Property Location
 
-All properties should be placed in a file called `oauth2.properties` at the root of the classpath.
+All properties should be placed in a file called `oauth2.properties` at the root of the classpath. Also, environment variables with the expected keys will override the properties file.
 
 ## Standard OAuth2 Properties
 
