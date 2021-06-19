@@ -1,12 +1,12 @@
 package io.craigmiller160.jaxrs.oauth2.config
 
 import io.craigmiller160.jaxrs.oauth2.exception.OAuth2PropertiesException
-import io.craigmiller160.oauth2.config.OAuth2Config
+import io.craigmiller160.oauth2.config.AbstractOAuth2Config
 import org.jvnet.hk2.annotations.Service
 import java.util.*
 
 @Service
-class OAuth2ConfigImpl(propsPath: String) : OAuth2Config() {
+class OAuth2ConfigImpl(propsPath: String) : AbstractOAuth2Config() {
     companion object {
         const val AUTH_CODE_REDIRECT_URI = "oauth2.auth-code-redirect-uri"
         const val AUTH_CODE_WAIT_MINS = "oauth2.auth-code-wait-mins"
