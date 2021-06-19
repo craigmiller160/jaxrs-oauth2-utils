@@ -6,7 +6,7 @@ import org.jvnet.hk2.annotations.Service
 import java.util.*
 
 @Service
-class OAuth2ConfigImpl(propsPath: String) : OAuth2Config {
+class OAuth2ConfigImpl(propsPath: String) : OAuth2Config() {
     companion object {
         const val AUTH_CODE_REDIRECT_URI = "oauth2.auth-code-redirect-uri"
         const val AUTH_CODE_WAIT_MINS = "oauth2.auth-code-wait-mins"
