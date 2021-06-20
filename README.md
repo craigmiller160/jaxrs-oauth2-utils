@@ -6,3 +6,4 @@ A library with JAX-RS utilities to help integrate apps with the sso-oauth2-serve
 
 ### 1. [How to Configure This Library](./docs/CONFIGURING.md)
 ### 2. [How to Integrate This Library](./docs/INTEGRATING.md)
+### 3. [How to Use Authentication](./docs/USING.md)
