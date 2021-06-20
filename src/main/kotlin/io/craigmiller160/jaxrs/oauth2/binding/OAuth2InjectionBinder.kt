@@ -8,7 +8,6 @@ import javax.ws.rs.ext.Provider
 @Provider
 class OAuth2InjectionBinder : AbstractBinder() {
     override fun configure() {
-        // TODO OAuth2Config is an abstract class, not an interface... is that a problem?
         bind(OAuth2ConfigImpl::class.java)
                 .to(OAuth2Config::class.java)
     }
