@@ -9,3 +9,12 @@ All properties should be placed in a file called `oauth2.properties` at the root
 ## Standard OAuth2 Properties
 
 This project supports all the properties from `oauth2-utils`. Please see that project for details about its properties.
+
+## Logging
+
+SLF4J is used in this library. The following loggers need to be exposed to see the logging:
+
+```
+io.craigmiller160.oauth2
+io.craigmiller160.jaxrs.oauth2
+```
