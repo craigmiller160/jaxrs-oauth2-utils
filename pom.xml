@@ -49,7 +49,7 @@
         </dependency>
         <dependency>
             <groupId>io.craigmiller160</groupId>
-            <artifactId>oauth2-utils</artifactId>
+            <artifactId>oauth2-utils-core</artifactId>
             <version>${oauth2.utils.version}</version>
         </dependency>
         <dependency>
