@@ -6,8 +6,9 @@ import io.craigmiller160.oauth2.domain.entity.AppRefreshToken
 import io.craigmiller160.oauth2.domain.repository.AppRefreshTokenRepository
 import java.sql.Connection
 import java.sql.ResultSet
+import javax.inject.Inject
 
-class JdbcRefreshTokenRepository(
+class JdbcRefreshTokenRepository @Inject constructor(
     private val sqlConnectionProvider: SqlConnectionProvider
 ) : AppRefreshTokenRepository {
     private val deleteById = """
