@@ -1,16 +1,17 @@
 package io.craigmiller160.jaxrs.oauth2.domain.repository
 
 import io.craigmiller160.jaxrs.oauth2.domain.SqlConnectionProvider
+import io.craigmiller160.jaxrs.oauth2.domain.entity.JdbcAppRefreshToken
 import org.h2.tools.Server
-import org.junit.jupiter.api.AfterAll
-import org.junit.jupiter.api.BeforeAll
-import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.*
 import java.sql.DriverManager
 
 class JdbcRefreshTokenRepositoryTest {
 
     companion object {
+        private const val TOKEN_ID = "tokenId"
+        private const val REFRESH_TOKEN = "refreshToken"
+
         lateinit var server: Server
 
         @BeforeAll
@@ -29,13 +30,23 @@ class JdbcRefreshTokenRepositoryTest {
 
     private lateinit var repo: JdbcRefreshTokenRepository
 
+    private fun getJdbcUrl(): String = "jdbc:h2:mem:${server.url}/test_db"
+
     @BeforeEach
     fun setup() {
-        val jdbcUrl = "jdbc:h2:mem:${server.url}/test_db"
         val connProvider: SqlConnectionProvider = SqlConnectionProvider {
-            DriverManager.getConnection(jdbcUrl)
+            DriverManager.getConnection(getJdbcUrl())
         }
         repo = JdbcRefreshTokenRepository(connProvider)
+    }
+
+    @AfterEach
+    fun clean() {
+        DriverManager.getConnection(getJdbcUrl()).use { conn ->
+            conn.createStatement().use { stmt ->
+                stmt.executeUpdate("DELETE FROM app_refresh_tokens")
+            }
+        }
     }
 
     @Test
@@ -55,7 +66,13 @@ class JdbcRefreshTokenRepositoryTest {
 
     @Test
     fun `save() new token`() {
-        TODO("Finish this")
+        val token = JdbcAppRefreshToken(
+                id = 0,
+                tokenId = TOKEN_ID,
+                refreshToken = REFRESH_TOKEN
+        )
+        repo.save(token)
+        // TODO finish this
     }
 
     @Test
