@@ -5,7 +5,6 @@ import io.craigmiller160.jaxrs.oauth2.domain.entity.JdbcAppRefreshToken
 import org.h2.tools.Server
 import org.junit.jupiter.api.*
 import java.nio.file.Files
-import java.sql.Connection
 import java.sql.DriverManager
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
@@ -101,7 +100,41 @@ class JdbcRefreshTokenRepositoryTest {
 
     @Test
     fun `save() existing token`() {
-        TODO("Finish this")
+        val id: Long = DriverManager.getConnection(getJdbcUrl()).use { conn ->
+            conn.prepareStatement("INSERT INTO app_refresh_tokens (token_id, refresh_token) VALUES(?,?)").use { stmt ->
+                stmt.setString(1, TOKEN_ID)
+                stmt.setString(2, REFRESH_TOKEN)
+                stmt.executeUpdate()
+            }
+            conn.createStatement().use { stmt -> stmt.executeQuery("SELECT * FROM app_refresh_tokens").use { rs ->
+                rs.next()
+                rs.getLong("id")
+            } }
+        }
+
+        val token = JdbcAppRefreshToken(
+                id = id,
+                tokenId = "${TOKEN_ID}_2",
+                refreshToken = "${REFRESH_TOKEN}_2"
+        )
+        val result = repo.save(token)
+        assertEquals(token, result)
+
+        DriverManager.getConnection(getJdbcUrl()).use { conn ->
+            conn.createStatement().use { stmt ->
+                stmt.executeQuery("SELECT COUNT(*) FROM app_refresh_tokens").use { rs ->
+                    assertTrue { rs.next() }
+                    assertEquals(1, rs.getLong(1))
+                }
+
+                stmt.executeQuery("SELECT * FROM app_refresh_tokens").use { rs ->
+                    assertTrue { rs.next() }
+                    assertEquals(result.id, rs.getLong("id"))
+                    assertEquals(result.tokenId, rs.getString("token_id"))
+                    assertEquals(result.refreshToken, rs.getString("refresh_token"))
+                }
+            }
+        }
     }
 
 }
