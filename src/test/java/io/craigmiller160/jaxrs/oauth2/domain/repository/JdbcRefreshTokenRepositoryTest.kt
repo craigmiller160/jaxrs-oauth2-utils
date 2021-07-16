@@ -4,7 +4,11 @@ import io.craigmiller160.jaxrs.oauth2.domain.SqlConnectionProvider
 import io.craigmiller160.jaxrs.oauth2.domain.entity.JdbcAppRefreshToken
 import org.h2.tools.Server
 import org.junit.jupiter.api.*
+import java.nio.file.Files
+import java.sql.Connection
 import java.sql.DriverManager
+import kotlin.test.assertEquals
+import kotlin.test.assertTrue
 
 class JdbcRefreshTokenRepositoryTest {
 
@@ -17,7 +21,7 @@ class JdbcRefreshTokenRepositoryTest {
         @BeforeAll
         @JvmStatic
         fun createServer() {
-            server = Server.createTcpServer()
+            server = Server.createTcpServer("-ifNotExists")
             server.start()
         }
 
@@ -28,12 +32,12 @@ class JdbcRefreshTokenRepositoryTest {
         }
     }
 
+    private val tempFile = Files.createTempFile("prefix", "suffix")
     private lateinit var repo: JdbcRefreshTokenRepository
 
     private fun getJdbcUrl(): String {
         val schema = javaClass.classLoader.getResource("schema.sql").toURI().path
-        println(schema) // TODO delete this
-        return "jdbc:h2:mem:${server.url}/test_db;DB_CLOSE_ON_EXIT=FALSE;MODE=PostgreSQL;INIT=RUNSCRIPT FROM '$schema'"
+        return "jdbc:h2:${server.url}/${tempFile.toFile().absolutePath};MODE=PostgreSQL;INIT=RUNSCRIPT FROM '$schema'"
     }
 
     @BeforeEach
@@ -75,8 +79,24 @@ class JdbcRefreshTokenRepositoryTest {
                 tokenId = TOKEN_ID,
                 refreshToken = REFRESH_TOKEN
         )
-        repo.save(token)
-        // TODO finish this
+        val result = repo.save(token)
+        assertEquals(token.copy(id = result.id), result)
+
+        DriverManager.getConnection(getJdbcUrl()).use { conn ->
+            conn.createStatement().use { stmt ->
+                stmt.executeQuery("SELECT COUNT(*) FROM app_refresh_tokens").use { rs ->
+                    assertTrue { rs.next() }
+                    assertEquals(1, rs.getLong(1))
+                }
+
+                stmt.executeQuery("SELECT * FROM app_refresh_tokens").use { rs ->
+                    assertTrue { rs.next() }
+                    assertEquals(result.id, rs.getLong("id"))
+                    assertEquals(result.tokenId, rs.getString("token_id"))
+                    assertEquals(result.refreshToken, rs.getString("refresh_token"))
+                }
+            }
+        }
     }
 
     @Test

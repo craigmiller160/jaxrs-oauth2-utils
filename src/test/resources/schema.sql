@@ -1,6 +1,4 @@
-CREATE SEQUENCE app_refresh_tokens_id_seq START 1;
-
-CREATE TABLE app_refresh_tokens (
+CREATE TABLE IF NOT EXISTS app_refresh_tokens (
     id BIGINT NOT NULL AUTO_INCREMENT,
     token_id VARCHAR(255) NOT NULL UNIQUE,
     refresh_token TEXT NOT NULL,
