@@ -34,10 +34,10 @@ class JdbcAppRefreshTokenRepository @Inject constructor(
         WHERE id = ?
     """.trimIndent()
 
-    override fun deleteById(id: Long) {
+    override fun deleteById(id: java.lang.Long) {
         sqlConnectionProvider.provide().use { conn ->
             conn.prepareStatement(deleteById).use { stmt ->
-                stmt.setLong(1, id)
+                stmt.setLong(1, id as kotlin.Long)
                 stmt.executeUpdate()
             }
             conn.commit()

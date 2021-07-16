@@ -71,7 +71,7 @@ class JdbcAppRefreshTokenRepositoryTest {
             } }
         }
 
-        repo.deleteById(id)
+        repo.deleteById(id as java.lang.Long)
 
         DriverManager.getConnection(getJdbcUrl()).use { conn ->
             conn.createStatement().use { stmt ->
