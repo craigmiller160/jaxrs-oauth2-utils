@@ -7,6 +7,7 @@ import org.junit.jupiter.api.*
 import java.nio.file.Files
 import java.sql.DriverManager
 import kotlin.test.assertEquals
+import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
 
 class JdbcRefreshTokenRepositoryTest {
@@ -84,12 +85,41 @@ class JdbcRefreshTokenRepositoryTest {
 
     @Test
     fun `removeByTokenId()`() {
-        TODO("Finish this")
+        DriverManager.getConnection(getJdbcUrl()).use { conn ->
+            conn.prepareStatement("INSERT INTO app_refresh_tokens (token_id, refresh_token) VALUES(?,?)").use { stmt ->
+                stmt.setString(1, TOKEN_ID)
+                stmt.setString(2, REFRESH_TOKEN)
+                stmt.executeUpdate()
+            }
+        }
+
+        repo.removeByTokenId(TOKEN_ID)
+
+        DriverManager.getConnection(getJdbcUrl()).use { conn ->
+            conn.createStatement().use { stmt ->
+                stmt.executeQuery("SELECT COUNT(*) FROM app_refresh_tokens").use { rs ->
+                    assertTrue { rs.next() }
+                    assertEquals(0, rs.getLong(1))
+                }
+            }
+        }
     }
 
     @Test
     fun `findByTokenId()`() {
-        TODO("Finish this")
+        DriverManager.getConnection(getJdbcUrl()).use { conn ->
+            conn.prepareStatement("INSERT INTO app_refresh_tokens (token_id, refresh_token) VALUES(?,?)").use { stmt ->
+                stmt.setString(1, TOKEN_ID)
+                stmt.setString(2, REFRESH_TOKEN)
+                stmt.executeUpdate()
+            }
+        }
+
+        val result = repo.findByTokenId(TOKEN_ID)
+        assertNotNull(result)
+        assertTrue { result.id > 0 }
+        assertEquals(TOKEN_ID, result.tokenId)
+        assertEquals(REFRESH_TOKEN, result.refreshToken)
     }
 
     @Test
