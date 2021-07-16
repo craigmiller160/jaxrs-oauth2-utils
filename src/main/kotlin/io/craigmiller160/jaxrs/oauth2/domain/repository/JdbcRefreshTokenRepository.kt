@@ -18,6 +18,14 @@ class JdbcRefreshTokenRepository(
         FROM app_refresh_tokens
         WHERE token_id = ?
     """.trimIndent()
+    private val deleteByTokenId = """
+        DELETE FROM app_refresh_tokens
+        WHERE token_id = ?
+    """.trimIndent()
+    private val insertRefreshToken = """
+        INSERT INTO app_refresh_tokens (token_id, refresh_token)
+        VALUES (?,?)
+    """.trimIndent()
 
     override fun deleteById(id: Long) {
         sqlConnectionProvider.provide().use { conn ->
@@ -25,6 +33,7 @@ class JdbcRefreshTokenRepository(
                 stmt.setLong(1, id)
                 stmt.executeUpdate()
             }
+            conn.commit()
         }
     }
 
@@ -51,10 +60,24 @@ class JdbcRefreshTokenRepository(
     }
 
     override fun removeByTokenId(tokenId: String) {
-        TODO("Not yet implemented")
+        sqlConnectionProvider.provide().use { conn ->
+            conn.prepareStatement(deleteByTokenId).use { stmt ->
+                stmt.setString(1, tokenId)
+                stmt.executeUpdate()
+            }
+            conn.commit()
+        }
     }
 
     override fun save(token: AppRefreshToken): AppRefreshToken {
-        TODO("Not yet implemented")
+        sqlConnectionProvider.provide().use { conn ->
+            conn.prepareStatement(insertRefreshToken).use { stmt ->
+                stmt.setString(1, token.tokenId)
+                stmt.setString(2, token.refreshToken)
+                stmt.executeUpdate()
+            }
+            conn.commit()
+        }
+        return findByTokenId(token.tokenId)!!
     }
 }
