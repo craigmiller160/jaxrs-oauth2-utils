@@ -28,6 +28,11 @@ class JdbcRefreshTokenRepository @Inject constructor(
         INSERT INTO app_refresh_tokens (token_id, refresh_token)
         VALUES (?,?)
     """.trimIndent()
+    private val updateRefreshToken = """
+        UPDATE app_refresh_tokens 
+        SET token_id = ?, refresh_token = ?
+        WHERE id = ?
+    """.trimIndent()
 
     override fun deleteById(id: Long) {
         sqlConnectionProvider.provide().use { conn ->
@@ -75,14 +80,34 @@ class JdbcRefreshTokenRepository @Inject constructor(
         }
     }
 
+    private fun insertToken(conn: Connection, token: AppRefreshToken) {
+        conn.prepareStatement(insertRefreshToken).use { stmt ->
+            stmt.setString(1, token.tokenId)
+            stmt.setString(2, token.refreshToken)
+            stmt.executeUpdate()
+        }
+        conn.commit()
+    }
+
+    private fun updateToken(conn: Connection, token: AppRefreshToken) {
+        conn.prepareStatement(updateRefreshToken).use { stmt ->
+            stmt.setString(1, token.tokenId)
+            stmt.setString(2, token.refreshToken)
+            stmt.setLong(3, token.id)
+            stmt.executeUpdate()
+        }
+        conn.commit()
+    }
+
+
     override fun save(token: AppRefreshToken): AppRefreshToken {
         return sqlConnectionProvider.provide().use { conn ->
-            conn.prepareStatement(insertRefreshToken).use { stmt ->
-                stmt.setString(1, token.tokenId)
-                stmt.setString(2, token.refreshToken)
-                stmt.executeUpdate()
+            if (token.id > 0) {
+                updateToken(conn, token)
+            } else {
+                insertToken(conn, token)
             }
-            conn.commit()
+
             doFindByTokenId(conn, token.tokenId)!!
         }
     }
