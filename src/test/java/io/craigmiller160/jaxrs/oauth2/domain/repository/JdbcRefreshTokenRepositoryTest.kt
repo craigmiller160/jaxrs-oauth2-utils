@@ -58,7 +58,28 @@ class JdbcRefreshTokenRepositoryTest {
 
     @Test
     fun `deleteById()`() {
-        TODO("Finish this")
+        val id: Long = DriverManager.getConnection(getJdbcUrl()).use { conn ->
+            conn.prepareStatement("INSERT INTO app_refresh_tokens (token_id, refresh_token) VALUES(?,?)").use { stmt ->
+                stmt.setString(1, TOKEN_ID)
+                stmt.setString(2, REFRESH_TOKEN)
+                stmt.executeUpdate()
+            }
+            conn.createStatement().use { stmt -> stmt.executeQuery("SELECT * FROM app_refresh_tokens").use { rs ->
+                rs.next()
+                rs.getLong("id")
+            } }
+        }
+
+        repo.deleteById(id)
+
+        DriverManager.getConnection(getJdbcUrl()).use { conn ->
+            conn.createStatement().use { stmt ->
+                stmt.executeQuery("SELECT COUNT(*) FROM app_refresh_tokens").use { rs ->
+                    assertTrue { rs.next() }
+                    assertEquals(0, rs.getLong(1))
+                }
+            }
+        }
     }
 
     @Test
