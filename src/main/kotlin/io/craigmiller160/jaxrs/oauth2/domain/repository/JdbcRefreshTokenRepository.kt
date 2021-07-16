@@ -4,6 +4,7 @@ import io.craigmiller160.jaxrs.oauth2.domain.SqlConnectionProvider
 import io.craigmiller160.jaxrs.oauth2.domain.entity.JdbcAppRefreshToken
 import io.craigmiller160.oauth2.domain.entity.AppRefreshToken
 import io.craigmiller160.oauth2.domain.repository.AppRefreshTokenRepository
+import java.sql.Connection
 import java.sql.ResultSet
 
 class JdbcRefreshTokenRepository(
@@ -44,18 +45,22 @@ class JdbcRefreshTokenRepository(
                     refreshToken = rs.getString("refresh_token")
             )
 
-    override fun findByTokenId(tokenId: String): AppRefreshToken? {
-        return sqlConnectionProvider.provide().use { conn ->
-            conn.prepareStatement(selectByTokenId).use { stmt ->
-                stmt.setString(1, tokenId)
-                stmt.executeQuery().use { rs ->
-                    if (rs.next()) {
-                        resultSetToEntity(rs)
-                    } else {
-                        null
-                    }
+    private fun doFindByTokenId(conn: Connection, tokenId: String): AppRefreshToken? {
+        return conn.prepareStatement(selectByTokenId).use { stmt ->
+            stmt.setString(1, tokenId)
+            stmt.executeQuery().use { rs ->
+                if (rs.next()) {
+                    resultSetToEntity(rs)
+                } else {
+                    null
                 }
             }
+        }
+    }
+
+    override fun findByTokenId(tokenId: String): AppRefreshToken? {
+        return sqlConnectionProvider.provide().use { conn ->
+            doFindByTokenId(conn, tokenId)
         }
     }
 
@@ -70,14 +75,14 @@ class JdbcRefreshTokenRepository(
     }
 
     override fun save(token: AppRefreshToken): AppRefreshToken {
-        sqlConnectionProvider.provide().use { conn ->
+        return sqlConnectionProvider.provide().use { conn ->
             conn.prepareStatement(insertRefreshToken).use { stmt ->
                 stmt.setString(1, token.tokenId)
                 stmt.setString(2, token.refreshToken)
                 stmt.executeUpdate()
             }
             conn.commit()
+            doFindByTokenId(conn, token.tokenId)!!
         }
-        return findByTokenId(token.tokenId)!!
     }
 }
