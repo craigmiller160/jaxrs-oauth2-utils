@@ -8,5 +8,5 @@ import javax.inject.Inject
 
 @Service
 class AuthServerClientInjectImpl @Inject constructor(
-        private val oAuth2Config: OAuth2Config
+        oAuth2Config: OAuth2Config
 ) : AuthServerClient by AuthServerClientImpl(oAuth2Config)
