@@ -30,11 +30,15 @@ class JdbcRefreshTokenRepositoryTest {
 
     private lateinit var repo: JdbcRefreshTokenRepository
 
-    private fun getJdbcUrl(): String = "jdbc:h2:mem:${server.url}/test_db"
+    private fun getJdbcUrl(): String {
+        val schema = javaClass.classLoader.getResource("schema.sql").toURI().path
+        println(schema) // TODO delete this
+        return "jdbc:h2:mem:${server.url}/test_db;DB_CLOSE_ON_EXIT=FALSE;MODE=PostgreSQL;INIT=RUNSCRIPT FROM '$schema'"
+    }
 
     @BeforeEach
     fun setup() {
-        val connProvider: SqlConnectionProvider = SqlConnectionProvider {
+        val connProvider = SqlConnectionProvider {
             DriverManager.getConnection(getJdbcUrl())
         }
         repo = JdbcRefreshTokenRepository(connProvider)
