@@ -10,7 +10,7 @@ import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
 
-class JdbcRefreshTokenRepositoryTest {
+class JdbcAppRefreshTokenRepositoryTest {
 
     companion object {
         private const val TOKEN_ID = "tokenId"
@@ -33,7 +33,7 @@ class JdbcRefreshTokenRepositoryTest {
     }
 
     private val tempFile = Files.createTempFile("prefix", "suffix")
-    private lateinit var repo: JdbcRefreshTokenRepository
+    private lateinit var repo: JdbcAppRefreshTokenRepository
 
     private fun getJdbcUrl(): String {
         val schema = javaClass.classLoader.getResource("schema.sql").toURI().path
@@ -45,7 +45,7 @@ class JdbcRefreshTokenRepositoryTest {
         val connProvider = SqlConnectionProvider {
             DriverManager.getConnection(getJdbcUrl())
         }
-        repo = JdbcRefreshTokenRepository(connProvider)
+        repo = JdbcAppRefreshTokenRepository(connProvider)
     }
 
     @AfterEach

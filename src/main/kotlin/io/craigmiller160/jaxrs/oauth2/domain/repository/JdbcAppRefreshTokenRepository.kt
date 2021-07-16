@@ -8,7 +8,7 @@ import java.sql.Connection
 import java.sql.ResultSet
 import javax.inject.Inject
 
-class JdbcRefreshTokenRepository @Inject constructor(
+class JdbcAppRefreshTokenRepository @Inject constructor(
     private val sqlConnectionProvider: SqlConnectionProvider
 ) : AppRefreshTokenRepository {
     private val deleteById = """
