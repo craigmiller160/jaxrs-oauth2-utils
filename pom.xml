@@ -28,9 +28,16 @@
         <jaxrs.version>2.1.6</jaxrs.version>
         <hk2.version>2.6.1</hk2.version>
         <junit.version>5.7.2</junit.version>
+        <h2.version>1.4.200</h2.version>
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>${h2.version}</version>
+            <scope>test</scope>
+        </dependency>
         <dependency>
             <groupId>uk.org.webcompere</groupId>
             <artifactId>system-stubs-core</artifactId>
