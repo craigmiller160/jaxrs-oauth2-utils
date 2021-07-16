@@ -4,6 +4,9 @@ import io.craigmiller160.oauth2.domain.entity.AppRefreshToken
 import io.craigmiller160.oauth2.domain.repository.AppRefreshTokenRepository
 
 class JdbcRefreshTokenRepository : AppRefreshTokenRepository {
+
+    // TODO need datasource from DI
+
     override fun deleteById(id: Long) {
         TODO("Not yet implemented")
     }
