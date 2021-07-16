@@ -1,10 +1,12 @@
 package io.craigmiller160.jaxrs.oauth2.domain.repository
 
+import io.craigmiller160.jaxrs.oauth2.domain.SqlConnectionProvider
 import org.h2.tools.Server
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import java.sql.DriverManager
 
 class JdbcRefreshTokenRepositoryTest {
 
@@ -25,9 +27,15 @@ class JdbcRefreshTokenRepositoryTest {
         }
     }
 
+    private lateinit var repo: JdbcRefreshTokenRepository
+
     @BeforeEach
     fun setup() {
-        println("URL: ${server.url}") // TODO delete this
+        val jdbcUrl = "jdbc:h2:mem:${server.url}/test_db"
+        val connProvider: SqlConnectionProvider = SqlConnectionProvider {
+            DriverManager.getConnection(jdbcUrl)
+        }
+        repo = JdbcRefreshTokenRepository(connProvider)
     }
 
     @Test
