@@ -25,3 +25,23 @@ In a JAX-RS Application implementation (such as Jersey's ResourceConfig), the OA
 ```
 register(OAuth2InjectionBinder())
 ```
+
+## Add SqlConnectionProviderFactory Binding
+
+The `SqlConnectionProvider` interface needs a functional implementation so that a SQL connection can be provided to code within this library. This should be provided by an hk2 factory:
+
+```
+class SqlConnectionProviderFactory : Factory<SqlConnectionProvider> {
+    override fun provide(): SqlConnectionProvider = SqlConnectionProvider { AppCore.dataSource.getConnection() }
+
+    override fun dispose(dataSource: SqlConnectionProvider?) {}
+}
+```
+
+It then needs to be bound in the consuming application's `Binder` class:
+
+```
+bindFactory(SqlConnectionProviderFactory::class.java)
+                .to(SqlConnectionProvider::class.java)
+```
+
