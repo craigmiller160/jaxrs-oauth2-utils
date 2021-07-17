@@ -6,6 +6,7 @@ import io.craigmiller160.jaxrs.oauth2.domain.repository.JdbcAppRefreshTokenRepos
 import io.craigmiller160.oauth2.client.AuthServerClient
 import io.craigmiller160.oauth2.config.OAuth2Config
 import io.craigmiller160.oauth2.domain.repository.AppRefreshTokenRepository
+import io.craigmiller160.oauth2.service.AuthUserProvider
 import org.glassfish.hk2.utilities.binding.AbstractBinder
 import javax.inject.Singleton
 import javax.ws.rs.ext.Provider
@@ -22,5 +23,7 @@ class OAuth2InjectionBinder : AbstractBinder() {
         bind(JdbcAppRefreshTokenRepository::class.java)
                 .to(AppRefreshTokenRepository::class.java)
                 .`in`(Singleton::class.java)
+        bindFactory(AuthUserProviderFactory::class.java)
+                .to(AuthUserProvider::class.java)
     }
 }
