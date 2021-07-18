@@ -30,6 +30,7 @@ class OAuth2ConfigImplTest {
         assertEquals("cookie-path", oauth2Config.cookiePath)
         assertEquals("insecure", oauth2Config.insecurePaths)
         assertEquals("post-auth-redirect", oauth2Config.postAuthRedirect)
+        assertEquals("refresh-token-schema", oauth2Config.refreshTokenSchema)
     }
 
     @Test
@@ -49,6 +50,7 @@ class OAuth2ConfigImplTest {
         assertEquals("cookie-path", oauth2Config.cookiePath)
         assertEquals("insecure", oauth2Config.insecurePaths)
         assertEquals("bar", oauth2Config.postAuthRedirect)
+        assertEquals("refresh-token-schema", oauth2Config.refreshTokenSchema)
     }
 
     @Test
