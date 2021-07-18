@@ -8,6 +8,7 @@ import java.sql.Connection
 import java.sql.ResultSet
 import javax.inject.Inject
 
+// TODO delete this
 class JdbcAppRefreshTokenRepository @Inject constructor(
     private val sqlConnectionProvider: SqlConnectionProvider
 ) : AppRefreshTokenRepository {

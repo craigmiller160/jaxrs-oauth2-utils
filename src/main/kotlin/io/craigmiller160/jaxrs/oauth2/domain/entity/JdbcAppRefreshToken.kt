@@ -2,6 +2,7 @@ package io.craigmiller160.jaxrs.oauth2.domain.entity
 
 import io.craigmiller160.oauth2.domain.entity.AppRefreshToken
 
+// TODO delete this
 data class JdbcAppRefreshToken(
         override val id: Long,
         override val tokenId: String,
