@@ -2,7 +2,7 @@ package io.craigmiller160.jaxrs.oauth2.binding
 
 import io.craigmiller160.jaxrs.oauth2.client.AuthServerClientInjectImpl
 import io.craigmiller160.jaxrs.oauth2.config.OAuth2ConfigImpl
-import io.craigmiller160.jaxrs.oauth2.domain.repository.JdbcAppRefreshTokenRepository
+import io.craigmiller160.jaxrs.oauth2.domain.AppRefreshTokenRepositoryInjectImpl
 import io.craigmiller160.jaxrs.oauth2.service.OAuth2ServiceInjectImpl
 import io.craigmiller160.oauth2.client.AuthServerClient
 import io.craigmiller160.oauth2.config.OAuth2Config
@@ -25,7 +25,7 @@ class OAuth2InjectionBinder : AbstractBinder() {
         bind(AuthServerClientInjectImpl::class.java)
                 .to(AuthServerClient::class.java)
                 .`in`(Singleton::class.java)
-        bind(JdbcAppRefreshTokenRepository::class.java)
+        bind(AppRefreshTokenRepositoryInjectImpl::class.java)
                 .to(AppRefreshTokenRepository::class.java)
                 .`in`(Singleton::class.java)
         bind(OAuth2ServiceInjectImpl::class.java)
