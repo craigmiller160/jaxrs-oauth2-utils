@@ -20,6 +20,7 @@ class OAuth2ConfigImpl(propsPath: String) : AbstractOAuth2Config() {
         const val COOKIE_PATH = "oauth2.cookie-path"
         const val INSECURE_PATHS = "oauth2.insecure-paths"
         const val POST_AUTH_REDIRECT = "oauth2.post-auth-redirect"
+        const val REFRESH_TOKEN_SCHEMA = "oauth2.refresh-token-schema"
 
         private const val DEFAULT_PROPS_PATH = "oauth2.properties"
     }
@@ -50,4 +51,5 @@ class OAuth2ConfigImpl(propsPath: String) : AbstractOAuth2Config() {
     override var cookiePath: String = props.getProperty(COOKIE_PATH, "")
     override var insecurePaths: String = props.getProperty(INSECURE_PATHS, "")
     override var postAuthRedirect: String = props.getProperty(POST_AUTH_REDIRECT, "")
+    override var refreshTokenSchema: String = props.getProperty(REFRESH_TOKEN_SCHEMA, "")
 }
