@@ -7,8 +7,8 @@ import io.craigmiller160.jaxrs.oauth2.service.OAuth2ServiceInjectImpl
 import io.craigmiller160.oauth2.client.AuthServerClient
 import io.craigmiller160.oauth2.config.OAuth2Config
 import io.craigmiller160.oauth2.domain.repository.AppRefreshTokenRepository
+import io.craigmiller160.oauth2.provider.AuthUserProvider
 import io.craigmiller160.oauth2.security.CookieCreator
-import io.craigmiller160.oauth2.service.AuthUserProvider
 import io.craigmiller160.oauth2.service.OAuth2Service
 import org.glassfish.hk2.utilities.binding.AbstractBinder
 import javax.inject.Singleton
