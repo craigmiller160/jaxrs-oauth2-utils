@@ -34,7 +34,7 @@ The `SqlConnectionProvider` interface needs a functional implementation so that 
 class SqlConnectionProviderFactory : Factory<SqlConnectionProvider> {
     override fun provide(): SqlConnectionProvider = SqlConnectionProvider { AppCore.dataSource.getConnection() }
 
-    override fun dispose(dataSource: SqlConnectionProvider?) {}
+    override fun dispose(provider: SqlConnectionProvider?) {}
 }
 ```
 
