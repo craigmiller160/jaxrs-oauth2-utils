@@ -23,7 +23,6 @@ import javax.ws.rs.ext.Provider
 class OAuth2InjectionBinder : AbstractBinder() {
     override fun configure() {
         bindAsContract(CookieCreator::class.java)
-        bindAsContract(OAuth2Resource::class.java)
 
         bind(OAuth2ConfigImpl::class.java)
                 .to(OAuth2Config::class.java)
