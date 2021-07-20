@@ -3,6 +3,7 @@ package io.craigmiller160.jaxrs.oauth2.binding
 import io.craigmiller160.jaxrs.oauth2.client.AuthServerClientInjectImpl
 import io.craigmiller160.jaxrs.oauth2.config.OAuth2ConfigImpl
 import io.craigmiller160.jaxrs.oauth2.domain.AppRefreshTokenRepositoryInjectImpl
+import io.craigmiller160.jaxrs.oauth2.resource.OAuth2Resource
 import io.craigmiller160.jaxrs.oauth2.service.AuthCodeServiceInjectImpl
 import io.craigmiller160.jaxrs.oauth2.service.OAuth2ServiceInjectImpl
 import io.craigmiller160.jaxrs.oauth2.service.RefreshTokenServiceInjectImpl
@@ -22,6 +23,7 @@ import javax.ws.rs.ext.Provider
 class OAuth2InjectionBinder : AbstractBinder() {
     override fun configure() {
         bindAsContract(CookieCreator::class.java)
+        bindAsContract(OAuth2Resource::class.java)
 
         bind(OAuth2ConfigImpl::class.java)
                 .to(OAuth2Config::class.java)
