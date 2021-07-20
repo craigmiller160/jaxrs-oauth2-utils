@@ -1,5 +1,6 @@
 package io.craigmiller160.jaxrs.oauth2.resource
 
+import io.craigmiller160.jaxrs.oauth2.testutils.JwtUtils
 import io.craigmiller160.oauth2.dto.AuthCodeLoginDto
 import io.craigmiller160.oauth2.dto.AuthCodeSuccessDto
 import io.craigmiller160.oauth2.dto.AuthUserDto
