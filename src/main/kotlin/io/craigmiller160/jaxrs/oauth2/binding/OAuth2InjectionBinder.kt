@@ -3,6 +3,7 @@ package io.craigmiller160.jaxrs.oauth2.binding
 import io.craigmiller160.jaxrs.oauth2.client.AuthServerClientInjectImpl
 import io.craigmiller160.jaxrs.oauth2.config.OAuth2ConfigImpl
 import io.craigmiller160.jaxrs.oauth2.domain.AppRefreshTokenRepositoryInjectImpl
+import io.craigmiller160.jaxrs.oauth2.resource.OAuth2Resource
 import io.craigmiller160.jaxrs.oauth2.service.AuthCodeServiceInjectImpl
 import io.craigmiller160.jaxrs.oauth2.service.OAuth2ServiceInjectImpl
 import io.craigmiller160.jaxrs.oauth2.service.RefreshTokenServiceInjectImpl

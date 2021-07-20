@@ -45,3 +45,10 @@ bindFactory(SqlConnectionProviderFactory::class.java)
                 .to(SqlConnectionProvider::class.java)
 ```
 
+## Add Path to Resource
+
+For JAX RS resource scanning, the path to the resources needs to be added:
+
+```
+io.craigmiller160.jaxrs.oauth2.resource
+```
