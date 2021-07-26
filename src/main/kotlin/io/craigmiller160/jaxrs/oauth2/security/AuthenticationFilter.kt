@@ -2,14 +2,15 @@ package io.craigmiller160.jaxrs.oauth2.security
 
 import io.craigmiller160.oauth2.security.AuthenticationFilterService
 import io.craigmiller160.oauth2.security.RequestWrapper
-import org.jvnet.hk2.annotations.Service
 import javax.inject.Inject
 import javax.ws.rs.container.ContainerRequestContext
 import javax.ws.rs.container.ContainerRequestFilter
 import javax.ws.rs.container.ContainerResponseContext
 import javax.ws.rs.container.ContainerResponseFilter
+import javax.ws.rs.ext.Provider
 
-@Service
+// TODO need to document how to have jaxrs scan this
+@Provider
 class AuthenticationFilter @Inject constructor(
         private val authenticationFilterService: AuthenticationFilterService
 ) : ContainerRequestFilter, ContainerResponseFilter {
