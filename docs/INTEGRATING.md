@@ -47,8 +47,8 @@ bindFactory(SqlConnectionProviderFactory::class.java)
 
 ## Add Path to Resource
 
-For JAX RS resource scanning, the path to the resources needs to be added:
+For JAX RS resource scanning, the path to the resources and other providers needs to be set. For example, in a Jersey `ResourceConfig`, this is how it would be registered:
 
 ```
-io.craigmiller160.jaxrs.oauth2.resource
+packages("io.craigmiller160.jaxrs.oauth2")
 ```
