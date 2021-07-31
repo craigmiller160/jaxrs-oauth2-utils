@@ -1,6 +1,7 @@
 package io.craigmiller160.jaxrs.oauth2.security
 
 import com.nimbusds.jwt.JWTClaimsSet
+import io.craigmiller160.jaxrs.oauth2.exception.OAuth2ExceptionMapper
 import io.craigmiller160.oauth2.security.AuthenticatedUser
 import io.craigmiller160.oauth2.security.AuthenticationFilterService
 import io.craigmiller160.oauth2.security.RequestWrapper
@@ -36,7 +37,8 @@ class AuthenticationFilter @Inject constructor(
                 .onFailure { ex ->
                     logger.error("Token validation failed: ${ex.message}")
                     logger.debug("", ex)
-                    // TODO need to abort with 401
+                    val error = OAuth2ExceptionMapper.createErrorResponse(ex)
+                    req.abortWith(error)
                 }
     }
 
