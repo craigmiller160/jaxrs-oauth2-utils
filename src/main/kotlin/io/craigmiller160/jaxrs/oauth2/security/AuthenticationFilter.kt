@@ -21,9 +21,15 @@ class AuthenticationFilter @Inject constructor(
 
     private val logger: Logger = LoggerFactory.getLogger(javaClass)
 
+    private fun ensureLeadingSlash(path: String): String =
+            when {
+                path.startsWith("/") -> path
+                else -> "/$path"
+            }
+
     override fun filter(req: ContainerRequestContext) {
         authenticationFilterService.authenticateRequest(RequestWrapper(
-                requestUri = req.uriInfo.path,
+                requestUri = ensureLeadingSlash(req.uriInfo.path),
                 getCookieValue = { cookieName -> req.cookies[cookieName]?.value },
                 getHeaderValue = { headerName -> req.getHeaderString(headerName) },
                 setAuthentication = { claims ->
