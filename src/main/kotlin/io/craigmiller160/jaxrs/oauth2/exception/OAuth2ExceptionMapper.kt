@@ -9,28 +9,40 @@ import javax.ws.rs.ext.Provider
 
 @Provider
 class OAuth2ExceptionMapper : ExceptionMapper<OAuth2Exception> {
-    override fun toResponse(ex: OAuth2Exception): Response {
-        val error = ErrorDto(
-                status = ex.statusCode,
-                message = getMessage(ex)
-        )
 
-        return Response
-                .status(ex.statusCode)
-                .entity(error)
-                .encoding(MediaType.APPLICATION_JSON)
-                .build()
+    companion object {
+        fun createErrorResponse(ex: Throwable): Response {
+            val status = when (ex) {
+                is OAuth2Exception -> ex.statusCode
+                else -> 500
+            }
+
+            val error = ErrorDto(
+                    status = status,
+                    message = getMessage(ex)
+            )
+
+            return Response
+                    .status(status)
+                    .entity(error)
+                    .encoding(MediaType.APPLICATION_JSON)
+                    .build()
+        }
+
+        private fun getMessage(ex: Throwable): String {
+            var message = ex.message ?: ""
+            var cause = ex.cause
+            while (cause != null) {
+                message = cause.message
+                        ?.let { "$message - $it" }
+                        ?: message
+                cause = cause.cause
+            }
+            return message
+        }
     }
 
-    private fun getMessage(ex: OAuth2Exception): String {
-        var message = ex.message ?: ""
-        var cause = ex.cause
-        while (cause != null) {
-            message = cause.message
-                    ?.let { "$message - $it" }
-                    ?: message
-            cause = cause.cause
-        }
-        return message
+    override fun toResponse(ex: OAuth2Exception): Response {
+        return createErrorResponse(ex)
     }
 }
