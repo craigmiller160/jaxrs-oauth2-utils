@@ -25,8 +25,9 @@ class OAuth2ExceptionMapper : ExceptionMapper<OAuth2Exception> {
             // TODO figure out why it can't serialize the error dto
             return Response
                     .status(status)
-//                    .entity(error)
-//                    .encoding(MediaType.APPLICATION_JSON)
+                    .entity(error)
+                    .header("Content-Type", "application/json")
+                    .encoding(MediaType.APPLICATION_JSON)
                     .build()
         }
 

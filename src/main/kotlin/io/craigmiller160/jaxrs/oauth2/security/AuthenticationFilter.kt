@@ -2,6 +2,7 @@ package io.craigmiller160.jaxrs.oauth2.security
 
 import com.nimbusds.jwt.JWTClaimsSet
 import io.craigmiller160.jaxrs.oauth2.exception.OAuth2ExceptionMapper
+import io.craigmiller160.oauth2.exception.InvalidTokenException
 import io.craigmiller160.oauth2.security.AuthenticatedUser
 import io.craigmiller160.oauth2.security.AuthenticationFilterService
 import io.craigmiller160.oauth2.security.RequestWrapper
@@ -28,24 +29,28 @@ class AuthenticationFilter @Inject constructor(
             }
 
     override fun filter(req: ContainerRequestContext) {
-        authenticationFilterService.authenticateRequest(RequestWrapper(
-                requestUri = ensureLeadingSlash(req.uriInfo.path),
-                getCookieValue = { cookieName -> req.cookies[cookieName]?.value },
-                getHeaderValue = { headerName -> req.getHeaderString(headerName) },
-                setAuthentication = { claims ->
-                    val authentication = createAuthenticatedUser(claims)
-                    req.setProperty(AuthConstants.AUTHENTICATED_USER, authentication)
-                },
-                setNewTokenCookie = { cookie ->
-                    req.setProperty(AuthConstants.NEW_TOKEN_FOR_COOKIE, cookie)
-                }
-        ))
-                .onFailure { ex ->
-                    logger.error("Token validation failed: ${ex.message}")
-                    logger.debug("", ex)
-                    val error = OAuth2ExceptionMapper.createErrorResponse(ex)
-                    req.abortWith(error)
-                }
+        // TODO uncomment
+//        authenticationFilterService.authenticateRequest(RequestWrapper(
+//                requestUri = ensureLeadingSlash(req.uriInfo.path),
+//                getCookieValue = { cookieName -> req.cookies[cookieName]?.value },
+//                getHeaderValue = { headerName -> req.getHeaderString(headerName) },
+//                setAuthentication = { claims ->
+//                    val authentication = createAuthenticatedUser(claims)
+//                    req.setProperty(AuthConstants.AUTHENTICATED_USER, authentication)
+//                },
+//                setNewTokenCookie = { cookie ->
+//                    req.setProperty(AuthConstants.NEW_TOKEN_FOR_COOKIE, cookie)
+//                }
+//        ))
+//                .onFailure { ex ->
+//                    logger.error("Token validation failed: ${ex.message}")
+//                    logger.debug("", ex)
+//                    val error = OAuth2ExceptionMapper.createErrorResponse(ex)
+//                    req.abortWith(error)
+//                }
+        // TODO delete below
+        val error = OAuth2ExceptionMapper.createErrorResponse(InvalidTokenException("Haha fake dying"))
+        req.abortWith(error)
     }
 
     private fun createAuthenticatedUser(claims: JWTClaimsSet): AuthenticatedUser =
