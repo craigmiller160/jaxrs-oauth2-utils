@@ -13,7 +13,6 @@ import javax.ws.rs.container.ContainerResponseContext
 import javax.ws.rs.container.ContainerResponseFilter
 import javax.ws.rs.ext.Provider
 
-// TODO need to document how to have jaxrs scan this
 @Provider
 class AuthenticationFilter @Inject constructor(
         private val authenticationFilterService: AuthenticationFilterService
