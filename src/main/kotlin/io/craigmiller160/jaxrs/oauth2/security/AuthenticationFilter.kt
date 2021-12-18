@@ -2,18 +2,17 @@ package io.craigmiller160.jaxrs.oauth2.security
 
 import com.nimbusds.jwt.JWTClaimsSet
 import io.craigmiller160.jaxrs.oauth2.exception.OAuth2ExceptionMapper
-import io.craigmiller160.oauth2.exception.InvalidTokenException
 import io.craigmiller160.oauth2.security.AuthenticatedUser
 import io.craigmiller160.oauth2.security.AuthenticationFilterService
 import io.craigmiller160.oauth2.security.RequestWrapper
+import jakarta.inject.Inject
+import jakarta.ws.rs.container.ContainerRequestContext
+import jakarta.ws.rs.container.ContainerRequestFilter
+import jakarta.ws.rs.container.ContainerResponseContext
+import jakarta.ws.rs.container.ContainerResponseFilter
+import jakarta.ws.rs.ext.Provider
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
-import javax.inject.Inject
-import javax.ws.rs.container.ContainerRequestContext
-import javax.ws.rs.container.ContainerRequestFilter
-import javax.ws.rs.container.ContainerResponseContext
-import javax.ws.rs.container.ContainerResponseFilter
-import javax.ws.rs.ext.Provider
 
 @Provider
 class AuthenticationFilter @Inject constructor(

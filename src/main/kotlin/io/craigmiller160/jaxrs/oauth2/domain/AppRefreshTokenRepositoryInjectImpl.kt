@@ -4,8 +4,8 @@ import io.craigmiller160.oauth2.config.OAuth2Config
 import io.craigmiller160.oauth2.domain.repository.AppRefreshTokenRepository
 import io.craigmiller160.oauth2.domain.repository.impl.AppRefreshTokenRepositoryImpl
 import io.craigmiller160.oauth2.provider.SqlConnectionProvider
+import jakarta.inject.Inject
 import org.jvnet.hk2.annotations.Service
-import javax.inject.Inject
 
 @Service
 class AppRefreshTokenRepositoryInjectImpl @Inject constructor(

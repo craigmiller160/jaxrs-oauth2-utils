@@ -16,9 +16,9 @@ import io.craigmiller160.oauth2.security.CookieCreator
 import io.craigmiller160.oauth2.service.AuthCodeService
 import io.craigmiller160.oauth2.service.OAuth2Service
 import io.craigmiller160.oauth2.service.RefreshTokenService
+import jakarta.inject.Singleton
+import jakarta.ws.rs.ext.Provider
 import org.glassfish.hk2.utilities.binding.AbstractBinder
-import javax.inject.Singleton
-import javax.ws.rs.ext.Provider
 
 @Provider
 class OAuth2InjectionBinder : AbstractBinder() {

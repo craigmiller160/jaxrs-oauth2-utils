@@ -5,14 +5,14 @@ import io.craigmiller160.oauth2.endpoint.OAuth2Endpoint
 import io.craigmiller160.oauth2.endpoint.PathConstants
 import io.craigmiller160.oauth2.service.AuthCodeService
 import io.craigmiller160.oauth2.service.OAuth2Service
-import javax.inject.Inject
-import javax.servlet.http.HttpServletRequest
-import javax.ws.rs.GET
-import javax.ws.rs.POST
-import javax.ws.rs.Path
-import javax.ws.rs.QueryParam
-import javax.ws.rs.core.Context
-import javax.ws.rs.core.Response
+import jakarta.inject.Inject
+import jakarta.servlet.http.HttpServletRequest
+import jakarta.ws.rs.GET
+import jakarta.ws.rs.POST
+import jakarta.ws.rs.Path
+import jakarta.ws.rs.QueryParam
+import jakarta.ws.rs.core.Context
+import jakarta.ws.rs.core.Response
 
 @Path(PathConstants.ROOT_PATH)
 class OAuth2Resource @Inject constructor(
