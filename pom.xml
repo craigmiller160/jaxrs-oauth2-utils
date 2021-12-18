@@ -6,7 +6,7 @@
 
     <groupId>io.craigmiller160</groupId>
     <artifactId>jaxrs-oauth2-utils</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
 
     <distributionManagement>
         <repository>
@@ -23,7 +23,7 @@
 
     <properties>
         <system.stubs.version>1.2.0</system.stubs.version>
-        <oauth2.utils.version>1.0.1</oauth2.utils.version>
+        <oauth2.utils.version>1.0.2</oauth2.utils.version>
         <kotlin.version>1.6.10</kotlin.version>
         <maven.compiler.source>15</maven.compiler.source>
         <maven.compiler.target>15</maven.compiler.target>
