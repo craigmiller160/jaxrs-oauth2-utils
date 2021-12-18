@@ -6,7 +6,7 @@ import io.craigmiller160.oauth2.security.CookieCreator
 import io.craigmiller160.oauth2.security.impl.AuthenticationFilterServiceImpl
 import io.craigmiller160.oauth2.service.RefreshTokenService
 import org.jvnet.hk2.annotations.Service
-import javax.inject.Inject
+import jakarta.inject.Inject
 
 @Service
 class AuthenticationFilterServiceInjectImpl @Inject constructor(

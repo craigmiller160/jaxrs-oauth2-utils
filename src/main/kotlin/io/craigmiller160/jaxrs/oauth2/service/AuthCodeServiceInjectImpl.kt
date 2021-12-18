@@ -6,7 +6,7 @@ import io.craigmiller160.oauth2.domain.repository.AppRefreshTokenRepository
 import io.craigmiller160.oauth2.security.CookieCreator
 import io.craigmiller160.oauth2.service.AuthCodeService
 import io.craigmiller160.oauth2.service.impl.AuthCodeServiceImpl
-import javax.inject.Inject
+import jakarta.inject.Inject
 
 class AuthCodeServiceInjectImpl @Inject constructor(
         oAuth2Config: OAuth2Config,
