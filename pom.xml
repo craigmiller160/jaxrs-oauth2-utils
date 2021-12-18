@@ -23,7 +23,7 @@
 
     <properties>
         <system.stubs.version>1.2.0</system.stubs.version>
-        <oauth2.utils.version>1.0.0</oauth2.utils.version>
+        <oauth2.utils.version>1.0.1</oauth2.utils.version>
         <kotlin.version>1.6.10</kotlin.version>
         <maven.compiler.source>15</maven.compiler.source>
         <maven.compiler.target>15</maven.compiler.target>
@@ -96,7 +96,6 @@
             <artifactId>jakarta.ws.rs-api</artifactId>
             <version>${jaxrs.version}</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.glassfish.hk2/hk2 -->
         <dependency>
             <groupId>org.glassfish.hk2</groupId>
             <artifactId>hk2</artifactId>
@@ -104,7 +103,7 @@
         </dependency>
         <dependency>
             <groupId>io.craigmiller160</groupId>
-            <artifactId>oauth2-utils-core</artifactId>
+            <artifactId>oauth2-utils-core-jakarta</artifactId>
             <version>${oauth2.utils.version}</version>
         </dependency>
         <dependency>
