@@ -6,31 +6,31 @@
 
     <groupId>io.craigmiller160</groupId>
     <artifactId>jaxrs-oauth2-utils</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
 
     <distributionManagement>
         <repository>
             <id>nexus</id>
             <name>Releases</name>
-            <url>https://craigmiller160.ddns.net:30003/repository/maven-releases</url>
+            <url>https://nexus-craigmiller160.ddns.net/repository/maven-releases</url>
         </repository>
         <snapshotRepository>
             <id>nexus</id>
             <name>Snapshot</name>
-            <url>https://craigmiller160.ddns.net:30003/repository/maven-snapshots</url>
+            <url>https://nexus-craigmiller160.ddns.net/repository/maven-snapshots</url>
         </snapshotRepository>
     </distributionManagement>
 
     <properties>
         <system.stubs.version>1.2.0</system.stubs.version>
-        <oauth2.utils.version>1.0.2</oauth2.utils.version>
+        <oauth2.utils.version>1.0.5</oauth2.utils.version>
         <kotlin.version>1.6.10</kotlin.version>
         <maven.compiler.source>15</maven.compiler.source>
         <maven.compiler.target>15</maven.compiler.target>
         <jaxrs.version>3.0.0</jaxrs.version>
         <hk2.version>3.0.2</hk2.version>
         <junit.version>5.7.2</junit.version>
-        <mockito.version>3.11.2</mockito.version>
+        <mockito.version>4.8.1</mockito.version>
         <jersey.version>3.0.3</jersey.version>
         <jaxb.version>2.3.1</jaxb.version>
         <jakarta.servlet.version>5.0.0</jakarta.servlet.version>
